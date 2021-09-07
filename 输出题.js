@@ -1,3 +1,4 @@
+// 输出结果是什么
 function get() {
   getname = function() {
     console.log('3');
@@ -20,3 +21,4 @@ function getname () {
 getname()
 get().getname();
 getname();
+
