@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>九宫格</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        html, body {
+            height: 100%;
+        }
+        body {
+            display: grid;
+            place-items: center;
+        }
+        ul {
+            width: 300px;
+            /* 清除默认样式 */
+            list-style: none;
+            /* 设置为flex布局 */
+            display: flex;
+            /* 设置换行 */
+            flex-wrap: wrap;
+        }
+        li {
+            display: grid;
+            /* 子元素水平垂直居中 */
+            place-items: center;
+            width: 100px;
+            height: 100px;
+            /* 设盒模型 */
+            box-sizing: border-box;
+            border: 1px solid black;
+            /* 负边距 */
+            margin: -1px 0 0 -1px;
+        }
+        /* 第1、4、7个子元素，即最左侧3个元素无左边负边距 */
+        li:nth-child(3n+1) {
+            margin-left: 0;
+        }
+        /* 第1、2、3个子元素，即最上面3个元素无上边负边距 */
+        li:nth-child(-n+3) {
+            margin-top: 0;
+        }
+        li:hover {
+            color: red;
+            border: 1px solid red;
+            /* 调高层级 */
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+        <li>7</li>
+        <li>8</li>
+        <li>9</li>
+    </ul>
+</body>
+<script>
+    const ul = document.querySelector('ul')[0];
+    ul.addEventListener('click', (event) => {
+        alert(e.target.innerText)
+    });
+</script>
+</html>
