@@ -27,17 +27,6 @@
  * @return {number[]}
  */
  var twoSum = function(nums, target) {
-    const map = {};//使用map将遍历过的数字存起来，值为key
-    if(Array.isArray(nums)){
-        for(let i=0;i<nums.length;i++){
-            if(map[target - nums[i]] != undefined){
-                return [map[target - nums[i]], i];
-            }else{
-                map[nums[i]] = i;//将下标作为值存入map
-            }
-        }
-    }
-
     let map = {};
     for (let i = 0; i < nums.length; i++) {
         if (map[target - nums[i]] !== undefined) {
