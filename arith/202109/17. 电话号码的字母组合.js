@@ -36,6 +36,7 @@ digits[i] 是范围 ['2', '9'] 的一个数字。
         9: 'wxyz'
     }
     if (digits.length === 1) return map[digits].split('');
+    // 当前拼接串 层级
     const dfs = (curStr, i) => {
         if (i > digits.length - 1) {
             res.push(curStr);
