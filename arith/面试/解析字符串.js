@@ -17,12 +17,12 @@ function getRes(str) {
       let key = arr[i].split('=')[0];
       let value = arr[i].split('=')[1];
       if (obj[key]) {
-          obj[key] = [obj[key], value]
+          obj[key] = [].concat(obj[key], value);
       }  else {
           obj[key] = value;
       }
   }
-  return JSON.stringify(obj);
+  return obj;
 }
-let str = 'a=-0.1&b=hello&c=3&a=587.9'
+let str = 'a=-0.1&b=hello&c=3&a=587.9&a=3'
 console.log(getRes(str));

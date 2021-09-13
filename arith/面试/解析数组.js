@@ -24,3 +24,4 @@ function getSum(arr) {
 }
 let arr = ['1a','2b','13c','5a'];
 console.log(getSum(arr));
+
