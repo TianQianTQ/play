@@ -79,3 +79,25 @@ let nums1 = [1,2], nums2 = [3,4]
 // nums1 = [], nums2 = [1]
 // let nums1 = [2], nums2 = [];
 console.log(findMedianSortedArrays([1,2],  [3,4]));
+
+var findMedianSortedArrays = function(nums1, nums2) {
+    let len = nums1.length + nums2.length;
+    let pre = -1, cur = -1;
+    let p1 = p2 = 0;
+    for (let i = 0; i < Math.floor(len / 2); i++) {
+        pre = cur;
+        if (p1 < nums1.length && (nums1[p1] < nums2[p1] || p2 >= nums2.length)) {
+            cur = nums1[p1];
+            p1++;
+        } else {
+            cur = nums2[p2];
+            p2++;
+        }
+    }
+    return len % 2 === 0 ? (pre + cur) / 2: cur;
+}
+
+// 题解：
+// 1、双指针法
+// 2、遍历一半长度，比较两个数组的最小值，放入pre和cur中
+// 3、判断奇偶，决定中位数是什么
