@@ -28,3 +28,16 @@ function myInstanceof(obj, Constructor) {
   if (leftProp === null) return false;
   return myInstanceof(leftProp, Constructor);
 }
+
+//  in 操作符会检查属性是否存在对象及其 [[Prototype]] 原型链中。
+var obj = {
+  a: 2
+};
+Object.prototype.b = function() {
+ return "hello b";
+}
+("a" in obj);     // true
+("b" in obj);     // true
+// hasOwnProperty(...)只会检查属性是否存在对象中，不会向上检查其原型链。
+obj.hasOwnProperty("a");     //true
+obj.hasOwnProperty("b");     //false

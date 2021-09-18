@@ -2,8 +2,19 @@
   bind方法会创建一个新函数，当新函数被调用时，第一个参数作为运行时的tihs,
   其他参数作为传递的实参
 
-  tips: 考虑bind返回的函数作为构造函数情况:
-    bind指定的this值会失效,但传入的参数依然生效
+  tips: 
+  1、考虑bind返回的函数作为构造函数情况:
+  2、bind指定的this值会失效,但传入的参数依然生效
+
+  与call/apply的区别：
+  1、bind返回一个绑定上下文的函数
+  2、call/apply执行了这个函数，返回结果
+
+  bind作用：
+  1、指定 this值 
+  2、返回一个函数 
+  3、可以传入参数
+  4、柯里化
 */
 
 // eg:
@@ -63,4 +74,26 @@ Function.prototype.bind2 = function(context, args1) {
     }
     return _this.apply(context, args1.concat(args2))
   }
+}
+
+
+Function.prototype.bind = function(context) {
+  // context 是需要改变this指针到 的对象
+  // 先判断this是否是函数 否抛出异常
+  if (typeof this !== 'function') {
+    throw new Error('');
+  }
+  let self = this;
+  let args = [].slice.call(arguments,1);
+  // let args = Array.prototype.slice.call(arguments,1);
+  let fNOP = function() {}; // 创建一个空对象 把函数原型赋值给空对象，利用了原型继承
+  let fn = function() {
+    let args2 = args.concat(...arguments);
+    // Array.prototype.slice.call(arguments).concat(args);
+    // 构造函数 this指向实例   普通函数this指向window
+    return self.apply(this instanceof fNOP ? this : context, args2);
+  }
+  fNOP.prototype = this.prototype; // 空对象的原型  指向 绑定函数的原型
+  context.prototype = new fNOP(); // 空对象的实例赋值给 fBound.prototype
+  return fn;
 }

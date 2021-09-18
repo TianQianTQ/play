@@ -5,10 +5,11 @@
 
 function new1() {
   let obj = new Object();
+  // var obj = Object.create(Con.prototype);
   Constructor = [].shift.call(arguments); // 构造函数
   obj._proto_ = Constructor.prototype; // 将obj的原型指向构造函数 =》obj可以访问到构造函数原型中的属性
   let res = Constructor.apply(obj, arguments);// 改变你构造函数this的指向
-  return typeof res === 'object' ? res : obj;// 解决构造函数有返回值的问题 - 》 function a { return '1' }; let s = new a(); // 1;
+  return typeof res === 'object' ? res : obj;// 解决构造函数有返回值的问题  // 优先返回构造函数返回的对象
 }
 
 
@@ -21,3 +22,102 @@ function myNew(func, ...args) {
   let res = func.apply(obj, args);
   return (res instanceof Object) ? res : obj;
 }
+
+
+function Am() {
+  return {
+    a: 1
+  };
+}
+let r = MyNew(Am);
+console.log(r, 'r');
+function MyNew() {
+  let obj = new Object(),
+      Constructor = [].shift.call(arguments);
+  obj._proto_ = Constructor.prototype;
+  let res = Constructor.apply(obj, arguments);
+  console.log(res, 'res');
+  console.log(obj, 'obj');
+  return (res instanceof Object) ? res : obj;
+}
+
+// apply打平数组参数  bind 实现 柯里化
+function foo(a, b) {
+  connsole.log(`a: ${a}, b: ${b}`);
+}
+let ø = Object.create( null );
+foo.apply(ø, [2,3]);
+let bar = foo.bind(ø, 2);
+bar(3); // a:2，b:3 
+
+
+// 打印题1:
+
+var name = 'window'
+
+var person1 = {
+  name: 'person1',
+  show1: function () {
+    console.log(this.name)
+  },
+  show2: () => console.log(this.name),
+  show3: function () {
+    return function () {
+      console.log(this.name)
+    }
+  },
+  show4: function () {
+    return () => console.log(this.name)
+  }
+}
+var person2 = { name: 'person2' }
+
+person1.show1()
+person1.show1.call(person2)
+
+person1.show2()
+person1.show2.call(person2)
+
+person1.show3()()
+person1.show3().call(person2)
+person1.show3.call(person2)()
+
+person1.show4()()
+person1.show4().call(person2)
+person1.show4.call(person2)()
+
+// 打印题2：
+var name = 'window'
+
+function Person (name) {
+  this.name = name;
+  this.show1 = function () {
+    console.log(this.name)
+  }
+  this.show2 = () => console.log(this.name)
+  this.show3 = function () {
+    return function () {
+      console.log(this.name)
+    }
+  }
+  this.show4 = function () {
+    return () => console.log(this.name)
+  }
+}
+
+var personA = new Person('personA')
+var personB = new Person('personB')
+
+personA.show1()
+personA.show1.call(personB)
+
+personA.show2()
+personA.show2.call(personB)
+
+personA.show3()()
+personA.show3().call(personB)
+personA.show3.call(personB)()
+
+personA.show4()()
+personA.show4().call(personB)
+personA.show4.call(personB)()
