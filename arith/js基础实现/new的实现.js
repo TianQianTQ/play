@@ -12,6 +12,18 @@ function new1() {
   return typeof res === 'object' ? res : obj;// 解决构造函数有返回值的问题  // 优先返回构造函数返回的对象
 }
 
+// 优化实现new
+function create() {
+	// 1、获得构造函数，同时删除 arguments 中第一个参数
+    Con = [].shift.call(arguments);
+	// 2、创建一个空的对象并链接到原型，obj 可以访问构造函数原型中的属性
+    var obj = Object.create(Con.prototype);
+	// 3、绑定 this 实现继承，obj 可以访问到构造函数中的属性
+    var ret = Con.apply(obj, arguments);
+	// 4、优先返回构造函数返回的对象
+	return ret instanceof Object ? ret : obj;
+};
+
 
 function myNew(func, ...args) {
   if (typeof func !== 'function') {
@@ -36,8 +48,6 @@ function MyNew() {
       Constructor = [].shift.call(arguments);
   obj._proto_ = Constructor.prototype;
   let res = Constructor.apply(obj, arguments);
-  console.log(res, 'res');
-  console.log(obj, 'obj');
   return (res instanceof Object) ? res : obj;
 }
 

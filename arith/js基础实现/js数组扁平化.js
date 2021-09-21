@@ -92,3 +92,30 @@ Array.prototype.reduceToFilter = function (handler) {
     return  pre;
   },[])
 }
+
+// 数组扁平化去重
+/*
+已知如下数组，编写一个程序将数组扁平化去并除其中重复部分数据，最终得到一个升序且不重复的数组
+*/
+
+var arr = [ [1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14] ] ] ], 10];
+
+// 方案一: 利用 es6的 flat(Infinity)
+function flat2(arr) {
+  return Array.from(new Set(arr.flat(Infinity))).sort((a, b) => a-b);
+}
+// 方案二: 利用toString
+function flat3(arr) {
+  return arr.toString().split(',').sort((a, b) => a-b).map(Number);
+}
+console.log(flat3(arr));
+// 方案三： 重写flat函数 与unique函数 再排序
+Array.prototype.flat = function() {
+  return [].concat(...this.map(item => (Array.isArray(item) ? item.flat() : [item])));
+}
+Array.prototype.unique =  function() {
+  return [...new Set(this)];
+}
+const sort = (a, b) => a - b;
+console.log(arr.flat().unique().sort(sort)); // [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 ]
+
