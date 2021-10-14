@@ -1,9 +1,10 @@
+/*
 1、两者区别
 观察者模式：观察者和目标直接交互
 发布订阅模式：统一由调度中心进行处理，订阅者和发布者互不干扰。
     这样一方面实现了解耦，可以实现更细粒度的一些控制。比如发布者发布了很多消息，但不是所有订阅者都接收到，就可以在调度中心做一些处理，类似于权限控制，也可以做一些节流操作
-
-2、观察者模式实现
+*/
+// 2、观察者模式实现
 
 // 观察者
 class Observer {
@@ -38,7 +39,7 @@ const subject = new Subject()
 subject.addObserver(observer1);
 subject.notify();
 
-3、发布订阅模式实现
+// 3、发布订阅模式实现
 class PubSub {
     constructor() {
         this.subscirbers = {}
@@ -64,7 +65,7 @@ let ob = new PubSub();
 ob.subscribe('add', (val) => console.log(val));
 ob.publish('add', 1);
 
-4、实现一个eventBus
+// 4、实现一个eventBus
 class EventEmitter {
     constructor() {
         // 存储事件与回调之间的对应关系
