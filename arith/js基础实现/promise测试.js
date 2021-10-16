@@ -133,3 +133,62 @@ Promise.concurrency([a, b, c, d, e, f], 2, true).then(function (data) {
 }).catch(function (err) {
   console.log(err);
 })
+
+
+let f1 = function(data) {
+  return new Promise(function(resolve, reject) {
+    set
+  })
+}
+
+
+Promise.resolve(1)
+  .then(res => {
+    console.log(res) // => 1
+    return 2 // 包装成 Promise.resolve(2)
+  })
+  .then(res => {
+    console.log(res) // => 2
+  })
+
+  let pe = () => new Promise((resolve, reject) => {
+    throw new Error('test');
+  })
+  new Promise((resolve, reject) => {
+    console.log('new Promise')
+    resolve('success1')
+  })
+  .then(res => {
+    console.log('then1')
+  })
+  .then(res => {
+    console.log('then2')
+    return pe();
+  })
+  .then((res) => {
+    console.log('正常：', res)
+  }, (err)  => {
+    console.log('异常：', err);
+  })
+  .catch(e => {
+    console.log(e);
+  })
+  .then((res) => {
+    console.log('resolve-end:', res)
+  }, (e) => {
+    console.log(e, 'reject-end')
+  })
+
+  const promise = new Promise(function(resolve, reject) {
+    throw new Error('test');
+  });
+  promise.catch(function(error) {
+    console.log(error);
+  });
+
+  const promise = new Promise(function(resolve, reject) {
+    reject(new Error('test'));
+  });
+  promise.catch(function(error) {
+    console.log(error);
+  });

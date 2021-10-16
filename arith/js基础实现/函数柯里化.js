@@ -36,8 +36,9 @@ add(1)(2);  // 3
 add(1)(2)(3); // 6
 add(1)(2)(3)(4); // 10 
 function add(a) {
-  function sum(b){
+  let  sum = (b) => {
     a = a + b;
+    return sum;
   }
   sum.toString = function() { // 重写toString()方法
     return a;
