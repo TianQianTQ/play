@@ -18,18 +18,18 @@
  * @return {number[]}
  */
 var sortedSquares = function(nums) {
-    let res = [];
-    for (let i = 0, j = nums.length - 1; i <= j;) {
-        let left = Math.abs(nums[i]);
-        let right = Math.abs(nums[j])
-        if (right > left) {
-            res.unshift(right * right);
-            j--
-        } else {
-            res.unshift(left * left);
-            i++
-        }
-    }
+    // let res = [];
+    // for (let i = 0, j = nums.length - 1; i <= j;) {
+    //     let left = Math.abs(nums[i]);
+    //     let right = Math.abs(nums[j])
+    //     if (right > left) {
+    //         res.unshift(right * right);
+    //         j--
+    //     } else {
+    //         res.unshift(left * left);
+    //         i++
+    //     }
+    // }
     // while循环
     let res = [];
     let length = nums.length;
