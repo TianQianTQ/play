@@ -220,4 +220,5 @@ function _inherits(subType, superType) {
 
 // es5继承和es6继承区别
 // es5继承实质是先创建子类的实例对象，再将父类的方法添加到this上 parent.call(this);
-// es6继承实质是先创建父类的实例对象this,然后再用子类的构造函数修改this ,因为子类 没有自己的this,所以 必须先调用父类的super()方法，否则新建实例报错
+// es6继承实质是先创建父类的实例对象this,然后再用子类的构造函数修改this ,因为子类没有自己的this,所以 必须先调用父类的super()方法，否则新建实例报错
+
