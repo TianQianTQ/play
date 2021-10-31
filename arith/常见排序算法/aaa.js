@@ -12,6 +12,7 @@ function sort(arr) {
 let arr = [3, 2, 5, 4, 6, 1];
 console.log(sort(arr));
 
+
 // 选择 
 function sort(arr) {
   for (let i = 0; i < arr.length; i++) {
